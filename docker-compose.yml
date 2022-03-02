@@ -1,0 +1,14 @@
+version: '3'
+services:
+
+        django:
+                build:
+                        context: ./
+                        dockerfile: Dockerfile
+                volumes:
+                        - ./:/code
+                working_dir: /code
+                command: /bin/bash -c "python3 fuckingwarship.py http://kremlin.ru"
+
+
+

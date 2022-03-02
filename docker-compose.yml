@@ -1,7 +1,7 @@
 version: '3'
 services:
 
-        django:
+        fuckingwarship:
                 build:
                         context: ./
                         dockerfile: Dockerfile
